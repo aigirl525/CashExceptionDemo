@@ -1,6 +1,8 @@
 package app.properties.custom.imooc.com.cashexceptiondemo.AsyncHttpClientDemo;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -11,6 +13,11 @@ import org.apache.http.Header;
  */
 
 public class AsyncHttpClientUtil {
+    private Context context;
+    public AsyncHttpClientUtil(Context context) {
+        this.context = context;
+    }
+
     /**
      * 通过AsyncHttpClient发送GET请求
      */
@@ -22,12 +29,13 @@ public class AsyncHttpClientUtil {
             @Override
             public void onSuccess(int i, org.apache.http.Header[] headers, byte[] bytes) {
                 Log.i("loginByAsyncHttpGet", "请求成功：" + new String(bytes));
-
+                Toast.makeText(context,"请求成功：loginByAsyncHttpGet" ,Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(int i, org.apache.http.Header[] headers, byte[] bytes, Throwable throwable) {
                  Log.i("loginByAsyncHttpGet", "请求失败： "+ new String(bytes));
+                Toast.makeText(context,"请求失败：loginByAsyncHttpGet" + new String(bytes),Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -51,15 +59,20 @@ public class AsyncHttpClientUtil {
             @Override
             public void onFailure(int arg0, Header[] arg1, byte[] arg2,
                                   Throwable arg3) {
-                // TODO Auto-generated method stub
                 Log.i("loginByAsyncHttpPost", "请求失败：" + new String(arg2));
+                Toast.makeText(context,"请求失败：loginByAsyncHttpPost" + new String(arg2),Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-                // TODO Auto-generated method stub
                 Log.i("loginByAsyncHttpPost", "请求成功：" + new String(arg2));
+                Toast.makeText(context,"请求成功：loginByAsyncHttpPost"  ,Toast.LENGTH_SHORT).show();
+
             }
         });
     }
+
+    //AsyncHttpClient上传文件
+    //params.put(profile_picture, new File(/sdcard/pictures/pic.jpg));
 }
