@@ -21,24 +21,28 @@ public class AsyncHttpClientUtil {
     /**
      * 通过AsyncHttpClient发送GET请求
      */
-    public void loginByAsyncHttpGet() {
+    public static String str;
+    public String loginByAsyncHttpGet() {
         String path = "http://yszjservice.shanku.info/ProudctCategroyWebService.asmx/GetProudctCategroyList";
         AsyncHttpClient client = new AsyncHttpClient();
+
         client.get(path, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int i, org.apache.http.Header[] headers, byte[] bytes) {
                 Log.i("loginByAsyncHttpGet", "请求成功：" + new String(bytes));
                 Toast.makeText(context,"请求成功：loginByAsyncHttpGet" ,Toast.LENGTH_SHORT).show();
+                str = new String(bytes);
+
             }
 
             @Override
             public void onFailure(int i, org.apache.http.Header[] headers, byte[] bytes, Throwable throwable) {
                  Log.i("loginByAsyncHttpGet", "请求失败： "+ new String(bytes));
                 Toast.makeText(context,"请求失败：loginByAsyncHttpGet" + new String(bytes),Toast.LENGTH_SHORT).show();
-
             }
         });
+     return str;
     }
 
 
